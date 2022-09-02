@@ -1,6 +1,6 @@
 # Getting Started with Nginx and React with Docker
 
-## Descript
+## Description
 
 This repository provides basic installation files to install ngnix and react using docker.
 
