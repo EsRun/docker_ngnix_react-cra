@@ -1,0 +1,27 @@
+FROM node:16.14.0 as builder
+
+# 폴더 생성 및 npm 설치
+RUN mkdir /usr/src/app
+WORKDIR /usr/src/app
+ENV PATH /usr/src/app/node_modules/.bin:$PATH
+COPY package.json /usr/src/app/package.json
+RUN npm install --silent
+RUN npm install react-scripts@latest -g --silent
+
+# 소스 복사 및 빌드
+COPY . /usr/src/app
+RUN npm run build
+
+
+FROM nginx:alpine
+
+# nginx의 기본 설정을 삭제 및 미리 설정한 파일 복사
+RUN rm -rf /etc/nginx/conf.d
+COPY conf /etc/nginx
+
+# 빌드 결과물을 nginx의 기본 폴더로 이동
+COPY --from=builder /usr/src/app/build /usr/share/nginx/html
+
+# 80 포트 오픈 및 ngnix 실행
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
