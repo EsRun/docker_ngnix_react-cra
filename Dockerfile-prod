@@ -12,7 +12,7 @@ RUN npm install react-scripts@latest -g --silent
 COPY . /usr/src/app
 RUN npm run build
 
-
+# ngnix 설치
 FROM nginx:alpine
 
 # nginx의 기본 설정을 삭제 및 미리 설정한 파일 복사
