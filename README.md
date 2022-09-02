@@ -6,6 +6,6 @@
 
 ## Install
 
-1. docker build -f Dockerfile-pord -t docker-nginx-react
+1. docker build -f Dockerfile-prod -t docker-nginx-react .
 
 2. docker run -it -p 80:80 docker-nginx-react
